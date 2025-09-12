@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    environment {
+        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+
+    stages {
+        stage('Terraform Init & Destroy') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform init'
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+    }
+}
+
