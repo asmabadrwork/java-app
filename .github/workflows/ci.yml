@@ -1,0 +1,55 @@
+name: Java CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    uses: vishuops0210/shared-repo/.github/workflows/ci-java.yml@main
+    with:
+      java-version: '17'
+
+      # --- GITLEAKS (SECRET SCAN) ---
+      enable-gitleaks: true
+      gitleaks-fetch-depth: '10'
+
+      # --- UNIT TESTS ---
+      enable-unit-tests: true
+      install-command: 'mvn clean install -DskipTests'
+      test-command: 'mvn clean test jacoco:report'
+
+      # --- SONARQUBE (SAST) ---
+      enable-sonarqube: true
+      sonar-project-key: 'java-app'
+      sonar-exclusions: '**/test/**'
+      sonar-args: >
+        -Dsonar.java.coveragePlugin=jacoco
+        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+
+      # --- TRIVY (SCA & IMAGE SCAN) ---
+      enable-trivy-fs: true
+      enable-trivy-image: true
+
+      # --- DOCKER BUILD & PUSH ---
+      enable-docker-build: true
+      enable-docker-push: true
+      enable-image-size-check: true
+
+      # --- ECR PUSH TOGGLE ---
+      enable-ecr-push: true
+      aws-region: 'ap-south-1'
+
+      docker-repository: 'java-api-demo'
+      docker-tag: ${{ github.sha }}
+      max-image-size-mb: '300'
+
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
