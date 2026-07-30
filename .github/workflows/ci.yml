@@ -26,8 +26,10 @@ jobs:
       sonar-project-key: 'java-ci-cd'
       sonar-exclusions: '**/test/**'
       sonar-args: >
+        -Dsonar.sources=src/main/java
+        -Dsonar.tests=src/test/java
         -Dsonar.java.coveragePlugin=jacoco
-        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml,site/jacoco/jacoco.xml
         -Dsonar.java.binaries=target/classes
 
       # --- TRIVY (SCA & IMAGE SCAN) ---
