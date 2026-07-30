@@ -28,6 +28,7 @@ jobs:
       sonar-args: >
         -Dsonar.java.coveragePlugin=jacoco
         -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+        -Dsonar.java.binaries=target/classes
 
       # --- TRIVY (SCA & IMAGE SCAN) ---
       enable-trivy-fs: true
