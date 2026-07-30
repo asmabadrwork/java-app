@@ -23,7 +23,7 @@ jobs:
 
       # --- SONARQUBE (SAST) ---
       enable-sonarqube: true
-      sonar-project-key: 'java-app'
+      sonar-project-key: 'java-ci-cd'
       sonar-exclusions: '**/test/**'
       sonar-args: >
         -Dsonar.java.coveragePlugin=jacoco
