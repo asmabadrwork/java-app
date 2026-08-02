@@ -39,7 +39,7 @@ jobs:
         -Dsonar.javascript.lcov.reportPaths=react-testing-app/coverage/lcov.info
 
       # --- TRIVY (SCA & IMAGE SCAN) ---
-      enable-trivy-fs: false
+      enable-trivy-fs: true
       enable-trivy-image: true
 
       # --- DOCKER BUILD & PUSH ---
