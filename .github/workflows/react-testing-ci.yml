@@ -53,7 +53,7 @@ jobs:
 
       # --- ECR PUSH ---
       enable-ecr-push: true
-      aws-region: 'us-east-1'
+      aws-region: 'ap-south-1'
 
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
