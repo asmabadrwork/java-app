@@ -26,17 +26,17 @@ jobs:
 
       # --- UNIT TESTS ---
       enable-unit-tests: true
-      install-command: 'cd react-testing-app && npm install'
-      test-command: 'cd react-testing-app && npm run test -- --coverage && cp -r coverage ../'
+      install-command: 'npm ci'
+      test-command: 'npm run test -- --coverage'
 
       # --- SONARQUBE (SAST) ---
       enable-sonarqube: true
       sonar-project-key: 'react-testing-app'
       sonar-exclusions: '**/__tests__/**'
       sonar-args: >
-        -Dsonar.sources=react-testing-app/src
-        -Dsonar.tests=react-testing-app/__tests__
-        -Dsonar.javascript.lcov.reportPaths=react-testing-app/coverage/lcov.info
+        -Dsonar.sources=src
+        -Dsonar.tests=__tests__
+        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
       # --- TRIVY (SCA & IMAGE SCAN) ---
       enable-trivy-fs: true
