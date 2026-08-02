@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name | dump }}
+  description: Python Testing application with mock endpoints
+  annotations:
+    github.com/project-slug: ${{ values.repoUrl | dump }}
+spec:
+  type: service
+  lifecycle: experimental
+  owner: ${{ values.owner | dump }}

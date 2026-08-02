@@ -1,0 +1,49 @@
+name: React Testing App CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'react-testing-app/**'
+      - '.github/workflows/react-testing-ci.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'react-testing-app/**'
+      - '.github/workflows/react-testing-ci.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react-testing-app
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './react-testing-app/package.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+        continue-on-error: true # For demonstration
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Build Next.js application
+        run: npm run build
+
+      - name: Build Docker image (verification)
+        run: docker build -t react-testing-app .

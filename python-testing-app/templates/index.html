@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Testing Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <header class="header">
+            <h1 class="title">Python Testing Dashboard</h1>
+            <p class="description">Interact with multiple API endpoints designed for maximum testing capabilities.</p>
+        </header>
+
+        <section class="content">
+            <div class="controls">
+                <div class="buttonGroup">
+                    <h3>Users API</h3>
+                    <button class="button" onclick="testEndpoint('/api/users', 'GET')">GET /api/users</button>
+                    <button class="button" onclick="testEndpoint('/api/users', 'POST', { name: 'Test User' })">POST /api/users</button>
+                    <button class="button" onclick="testEndpoint('/api/users/1', 'GET')">GET /api/users/1</button>
+                    <button class="button" onclick="testEndpoint('/api/users/1', 'PUT', { name: 'Updated User' })">PUT /api/users/1</button>
+                    <button class="button" onclick="testEndpoint('/api/users/1', 'DELETE')">DELETE /api/users/1</button>
+                </div>
+                <div class="buttonGroup">
+                    <h3>Utility API</h3>
+                    <button class="button errorButton" onclick="testEndpoint('/api/error', 'GET')">GET /api/error (Simulate Error)</button>
+                    <button class="button" onclick="testEndpoint('/api/delay', 'GET')">GET /api/delay (Simulate Delay)</button>
+                </div>
+            </div>
+
+            <div class="results">
+                <h2>Response output</h2>
+                <div class="terminal" id="terminal">
+                    <span class="placeholder">Select an endpoint to see results here.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function testEndpoint(url, method = 'GET', body = null) {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = '<span class="loader">Fetching data...</span>';
+            
+            try {
+                const options = { method };
+                if (body) {
+                    options.headers = { 'Content-Type': 'application/json' };
+                    options.body = JSON.stringify(body);
+                }
+                
+                const res = await fetch(url, options);
+                let data;
+                try {
+                    data = await res.json();
+                } catch(e) {
+                    data = await res.text();
+                }
+                
+                const output = { status: res.status, data };
+                terminal.innerHTML = `<pre>${JSON.stringify(output, null, 2)}</pre>`;
+            } catch (error) {
+                terminal.innerHTML = `<pre>${JSON.stringify({ error: error.message }, null, 2)}</pre>`;
+            }
+        }
+    </script>
+</body>
+</html>

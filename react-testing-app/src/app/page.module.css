@@ -1,0 +1,136 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.buttonGroup {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.buttonGroup h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #e2e8f0;
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.button:last-child {
+  margin-bottom: 0;
+}
+
+.errorButton {
+  background-color: var(--error-color);
+}
+
+.errorButton:hover {
+  background-color: var(--error-hover);
+}
+
+.results {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.results h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #e2e8f0;
+}
+
+.terminal {
+  flex: 1;
+  background-color: #020617;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-family: 'Courier New', Courier, monospace;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.terminal pre {
+  color: #4ade80;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.loader {
+  color: #fbbf24;
+  animation: pulse 1.5s infinite;
+}
+
+.placeholder {
+  color: #475569;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
