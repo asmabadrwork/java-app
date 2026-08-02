@@ -26,8 +26,8 @@ jobs:
 
       # --- UNIT TESTS ---
       enable-unit-tests: true
-      install-command: 'cd react-testing-app && npm ci'
-      test-command: 'cd react-testing-app && npm run test'
+      install-command: 'cd react-testing-app && npm install'
+      test-command: 'cd react-testing-app && npm run test -- --coverage && cp -r coverage ../'
 
       # --- SONARQUBE (SAST) ---
       enable-sonarqube: true
